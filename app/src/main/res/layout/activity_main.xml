@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/top_menu"
-        app:layout_constraintBottom_toTopOf="@+id/Bottom_menu"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
         />
 
 
@@ -28,7 +28,7 @@
         android:layout_height="0dp"
         app:layout_constraintWidth_default="spread"
         app:layout_constraintHeight_default="spread"
-        app:layout_constraintBottom_toTopOf="@+id/Bottom_menu"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
 
 
     <FrameLayout
-        android:id="@+id/Bottom_menu"
+        android:id="@+id/bottom_menu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#4CAF50"
