@@ -6,4 +6,5 @@
     <string name="btn_later">Смотреть позже</string>
     <string name="btn_choice">Подборки</string>
     <string name="btn_set">Настройки</string>
+    <string name="menu_settings_title">Search it!</string>
 </resources>
