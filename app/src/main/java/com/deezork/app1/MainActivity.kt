@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener{
-
             when (it.itemId) {
                 R.id.favorites -> {
                     Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
