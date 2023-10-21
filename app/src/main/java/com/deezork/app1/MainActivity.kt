@@ -1,5 +1,6 @@
 package com.deezork.app1
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
         initFilmRV()
     }
-
     private fun initNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -72,8 +72,10 @@ class MainActivity : AppCompatActivity() {
             //Инициализируем наш адаптер в конструктор передаем анонимно инициализированный интерфейс,
             //оставим его пока пустым, он нам понадобится во второй части задания
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
-                override fun click(film: Film, position: Int) {
-                    TODO("Not yet implemented")
+                override fun click(film: Film) {
+                    //Запускаем наше активити
+                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+                    startActivity(intent)
                 }
             })
             //Присваиваем адаптер
@@ -87,4 +89,4 @@ class MainActivity : AppCompatActivity() {
 //Кладем нашу БД в RV
         filmsAdapter.addItems(filmsDataBase)
     }
-}
+ }
