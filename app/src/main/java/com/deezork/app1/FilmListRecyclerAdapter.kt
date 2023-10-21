@@ -13,6 +13,7 @@ class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) :
             LayoutInflater.from(parent.context).inflate(R.layout.film_item, parent, false)
         )
     }
+
     override fun getItemCount() = items.size
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //Проверяем какой у нас ViewHolder
