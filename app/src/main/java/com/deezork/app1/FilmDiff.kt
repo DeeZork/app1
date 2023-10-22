@@ -4,18 +4,21 @@ import androidx.recyclerview.widget.DiffUtil
 
 class FilmDiff(val oldList: ArrayList <Film> , val newList: ArrayList <Film>): DiffUtil.Callback() {
     override fun getOldListSize(): Int {
-        TODO("Not yet implemented")
+        return oldList.size
     }
 
     override fun getNewListSize(): Int {
-        TODO("Not yet implemented")
+        return newList.size
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        TODO("Not yet implemented")
+        return oldList[oldItemPosition].title == newList[newItemPosition].title
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        TODO("Not yet implemented")
+        val old = oldList[oldItemPosition]
+        val new = newList[newItemPosition]
+        return old.description == new.description &&
+                old.poster == new.poster
     }
 }

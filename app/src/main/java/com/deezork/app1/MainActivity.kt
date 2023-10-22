@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             })
             //Присваиваем адаптер
             adapter = filmsAdapter
-            //Присвои layoutmanager
+            //Присваиваем layoutmanager
             layoutManager = LinearLayoutManager(this@MainActivity)
             //Применяем декоратор для отступов
             val decorator = TopSpacingItemDecoration(8)
