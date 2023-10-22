@@ -2,6 +2,8 @@ package com.deezork.app1
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,8 +75,16 @@ class MainActivity : AppCompatActivity() {
             //оставим его пока пустым, он нам понадобится во второй части задания
             filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
                 override fun click(film: Film) {
+                    //Создаем бандл и кладем туда объект с данными фильма
+                    val bundle = Bundle()
+                    //Первым параметром указывается ключ, по которому потом будем искать, вторым сам
+                    //передаваемый объект
+                    bundle.putParcelable("film", film)
                     //Запускаем наше активити
                     val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+                    //Прикрепляем бандл к интенту
+                    intent.putExtras(bundle)
+                    //Запускаем активити через интент
                     startActivity(intent)
                 }
             })
@@ -89,4 +99,4 @@ class MainActivity : AppCompatActivity() {
 //Кладем нашу БД в RV
         filmsAdapter.addItems(filmsDataBase)
     }
- }
+}

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private val items = mutableListOf<Film>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -15,7 +16,7 @@ class FilmListRecyclerAdapter(private val clickListener: OnItemClickListener) :
     }
 
     override fun getItemCount() = items.size
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder,position: Int) {
         //Проверяем какой у нас ViewHolder
         when (holder) {
             is FilmViewHolder -> {
