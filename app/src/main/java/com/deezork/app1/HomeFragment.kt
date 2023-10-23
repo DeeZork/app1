@@ -15,8 +15,8 @@ class HomeFragment : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     val filmsDataBase = listOf(
         Film("Барби", R.drawable.barbie, "Барби"),
-        Film("Дюна", R.drawable.goonies, "Дюна"),
-        Film("Балбесы", R.drawable.dune, "Балбесы"),
+        Film("Дюна", R.drawable.dune, "Дюна"),
+        Film("Балбесы", R.drawable.goonies, "Балбесы"),
         Film("Индиана Джонс", R.drawable.indianajones, "Индиана Джонс"),
         Film("Паразиты", R.drawable.parasite, "Паразиты"),
         Film("Крик", R.drawable.scream, "Крик"),
@@ -33,14 +33,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
-
         //находим наш RV
         binding.mainRecycler.apply {
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener{
-                override fun click(film: Film) {
-                    (requireActivity() as MainActivity).launchDetailsFragment(film)
-                }
-            })
+            filmsAdapter =
+                FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
+                    override fun click(film: Film) {
+                        (requireActivity() as MainActivity).launchDetailsFragment(film)
+                    }
+                })
             //Присваиваем адаптер
             adapter = filmsAdapter
             //Присвои layoutmanager
@@ -52,6 +52,7 @@ class HomeFragment : Fragment() {
         //Кладем нашу БД в RV
         filmsAdapter.addItems(filmsDataBase)
     }
+
     fun updateRV(newList: List<Film>) {
         val oldList = filmsAdapter.items
         val filmDiff = FilmDiff(oldList, newList)

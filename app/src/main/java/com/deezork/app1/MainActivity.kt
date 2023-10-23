@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.deezork.app1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private var backPressed = 0L
     private lateinit var binding: ActivityMainBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     val filmsDataBase = listOf(
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
     }
+
     private fun initTopAppBar() {
         binding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
@@ -45,10 +47,12 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
                     true
                 }
+
                 else -> false
             }
         }
     }
+
     private fun initNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -71,6 +75,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     fun launchDetailsFragment(film: Film) {
         //Создаем "посылку"
         val bundle = Bundle()
@@ -89,6 +94,18 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-
-
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1) {
+            if (backPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+                super.onBackPressed()
+                finish()
+            } else
+                Toast.makeText(this, "DoubleClick for EXIT", Toast.LENGTH_SHORT).show()
+            backPressed = System.currentTimeMillis()
+        } else
+            super.onBackPressed()
+    }
+    companion object {
+        const val TIME_INTERVAL = 2000
+    }
 }
