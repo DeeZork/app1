@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.deezork.app1.databinding.ActivityMainBinding
 
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
         initFilmRV()
     }
+
     private fun initNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -73,21 +75,22 @@ class MainActivity : AppCompatActivity() {
         binding.mainRecycler.apply {
             //Инициализируем наш адаптер в конструктор передаем анонимно инициализированный интерфейс,
             //оставим его пока пустым, он нам понадобится во второй части задания
-            filmsAdapter = FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
-                override fun click(film: Film) {
-                    //Создаем бандл и кладем туда объект с данными фильма
-                    val bundle = Bundle()
-                    //Первым параметром указывается ключ, по которому потом будем искать, вторым сам
-                    //передаваемый объект
-                    bundle.putParcelable("film", film)
-                    //Запускаем наше активити
-                    val intent = Intent(this@MainActivity, DetailsActivity::class.java)
-                    //Прикрепляем бандл к интенту
-                    intent.putExtras(bundle)
-                    //Запускаем активити через интент
-                    startActivity(intent)
-                }
-            })
+            filmsAdapter =
+                FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
+                    override fun click(film: Film) {
+                        //Создаем бандл и кладем туда объект с данными фильма
+                        val bundle = Bundle()
+                        //Первым параметром указывается ключ, по которому потом будем искать, вторым сам
+                        //передаваемый объект
+                        bundle.putParcelable("film", film)
+                        //Запускаем наше активити
+                        val intent = Intent(this@MainActivity, DetailsActivity::class.java)
+                        //Прикрепляем бандл к интенту
+                        intent.putExtras(bundle)
+                        //Запускаем активити через интент
+                        startActivity(intent)
+                    }
+                })
             //Присваиваем адаптер
             adapter = filmsAdapter
             //Присваиваем layoutmanager
@@ -98,5 +101,13 @@ class MainActivity : AppCompatActivity() {
         }
 //Кладем нашу БД в RV
         filmsAdapter.addItems(filmsDataBase)
+    }
+
+    fun updateRV(newList: List<Film>) {
+        val oldList = filmsAdapter.items
+        val filmDiff = FilmDiff(oldList, newList)
+        val diffResult = DiffUtil.calculateDiff(filmDiff)
+        filmsAdapter.items = newList as MutableList<Film>
+        diffResult.dispatchUpdatesTo(filmsAdapter)
     }
 }

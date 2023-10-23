@@ -2,7 +2,7 @@ package com.deezork.app1
 
 import androidx.recyclerview.widget.DiffUtil
 
-class FilmDiff(val oldList: ArrayList <Film> , val newList: ArrayList <Film>): DiffUtil.Callback() {
+class FilmDiff(val oldList: List <Film> , val newList: List <Film>): DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
     }
