@@ -31,9 +31,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
         initTopAppBar()
         initNavigation()
-        initFilmRV()
+        //Зупускаем фрагмент при старте
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_placeholder, HomeFragment())
+            .addToBackStack(null)
+            .commit()
     }
-
+    private fun initTopAppBar() {
+        binding.topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.settings -> {
+                    Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
     private fun initNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -56,58 +71,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    fun launchDetailsFragment(film: Film) {
+        //Создаем "посылку"
+        val bundle = Bundle()
+        //Кладем наш фильм в "посылку"
+        bundle.putParcelable("film", film)
+        //Кладем фрагмент с деталями в перменную
+        val fragment = DetailsFragment()
+        //Прикрепляем нашу "посылку" к фрагменту
+        fragment.arguments = bundle
 
-    private fun initTopAppBar() {
-        binding.topAppBar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.settings -> {
-                    Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                else -> false
-            }
-        }
+        //Запускаем фрагмент
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_placeholder, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
-    private fun initFilmRV() {
-//находим наш RV
-        binding.mainRecycler.apply {
-            //Инициализируем наш адаптер в конструктор передаем анонимно инициализированный интерфейс,
-            //оставим его пока пустым, он нам понадобится во второй части задания
-            filmsAdapter =
-                FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {
-                    override fun click(film: Film) {
-                        //Создаем бандл и кладем туда объект с данными фильма
-                        val bundle = Bundle()
-                        //Первым параметром указывается ключ, по которому потом будем искать, вторым сам
-                        //передаваемый объект
-                        bundle.putParcelable("film", film)
-                        //Запускаем наше активити
-                        val intent = Intent(this@MainActivity, DetailsActivity::class.java)
-                        //Прикрепляем бандл к интенту
-                        intent.putExtras(bundle)
-                        //Запускаем активити через интент
-                        startActivity(intent)
-                    }
-                })
-            //Присваиваем адаптер
-            adapter = filmsAdapter
-            //Присваиваем layoutmanager
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            //Применяем декоратор для отступов
-            val decorator = TopSpacingItemDecoration(8)
-            addItemDecoration(decorator)
-        }
-//Кладем нашу БД в RV
-        filmsAdapter.addItems(filmsDataBase)
-    }
 
-    fun updateRV(newList: List<Film>) {
-        val oldList = filmsAdapter.items
-        val filmDiff = FilmDiff(oldList, newList)
-        val diffResult = DiffUtil.calculateDiff(filmDiff)
-        filmsAdapter.items = newList as MutableList<Film>
-        diffResult.dispatchUpdatesTo(filmsAdapter)
-    }
+
 }
