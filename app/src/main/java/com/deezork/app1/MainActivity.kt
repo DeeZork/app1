@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     val filmsDataBase = listOf(
         Film("Барби", R.drawable.barbie, "Барби"),
-        Film("Дюна", R.drawable.goonies, "Дюна"),
-        Film("Балбесы", R.drawable.dune, "Балбесы"),
+        Film("Дюна", R.drawable.dune, "Дюна"),
+        Film("Балбесы", R.drawable.goonies, "Балбесы"),
         Film("Индиана Джонс", R.drawable.indianajones, "Индиана Джонс"),
         Film("Паразиты", R.drawable.parasite, "Паразиты"),
         Film("Крик", R.drawable.scream, "Крик"),
