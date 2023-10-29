@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Настройки", Toast.LENGTH_SHORT).show()
                     true
                 }
-
                 else -> false
             }
         }
@@ -58,6 +57,12 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.favorites -> {
                     Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
+                    true
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.fragment_placeholder, FavoritesFragment())
+                        .addToBackStack(null)
+                        .commit()
                     true
                 }
 
@@ -85,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         val fragment = DetailsFragment()
         //Прикрепляем нашу "посылку" к фрагменту
         fragment.arguments = bundle
-
         //Запускаем фрагмент
         supportFragmentManager
             .beginTransaction()
