@@ -22,10 +22,11 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailsBinding.bind(view)
+
         //Получаем наш фильм из переданного бандла
         film = arguments?.get("film") as Film
         setFilmsDetails()
-        setOnTypeFabfavorites()
+        setOnFilmFavorites()
         setOnFabShare()
     }
 
@@ -43,17 +44,19 @@ class DetailsFragment : Fragment() {
         )
     }
 
-    private fun setOnTypeFabfavorites() {
+    private fun setOnFilmFavorites() {
         binding.detailsFabFavorites.setOnClickListener {
             if (!film.isInFavorites) {
                 binding.detailsFabFavorites.setImageResource(R.drawable.baseline_favorite_24)
                 film.isInFavorites = true
+
             } else {
                 binding.detailsFabFavorites.setImageResource(R.drawable.baseline_favorite)
                 film.isInFavorites = false
             }
         }
     }
+
     private fun setOnFabShare() {
         binding.detailsFab.setOnClickListener {
             //Создаем интент

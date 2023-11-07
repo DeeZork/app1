@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.deezork.app1.databinding.FragmentFavoritesBinding
 import com.deezork.app1.databinding.FragmentHomeBinding
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment(val filmsDataBase: List<Film>) : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
+    val favoritesList: List<Film> = emptyList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,9 +23,11 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Получаем список при транзакции фрагмента
-        val favoritesList: List<Film> = emptyList()
         binding = FragmentFavoritesBinding.bind(view)
-
+        //Создаем список избранных фильмов
+        filmsDataBase.forEach { i ->
+            if (i.isInFavorites) favoritesList.plus(i)
+        }
         binding.favoritesRecycler.apply {
             filmsAdapter =
                 FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {

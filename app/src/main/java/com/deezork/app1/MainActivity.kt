@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         //Зупускаем фрагмент при старте
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragment_placeholder, HomeFragment())
+            .add(R.id.fragment_placeholder, HomeFragment(filmsDataBase))
             .addToBackStack(null)
             .commit()
     }
@@ -57,10 +57,9 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.favorites -> {
                     Toast.makeText(this, "Избранное", Toast.LENGTH_SHORT).show()
-                    true
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.fragment_placeholder, FavoritesFragment())
+                        .replace(R.id.fragment_placeholder, FavoritesFragment(filmsDataBase))
                         .addToBackStack(null)
                         .commit()
                     true
