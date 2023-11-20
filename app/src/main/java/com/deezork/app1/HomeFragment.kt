@@ -15,30 +15,24 @@ import androidx.transition.TransitionManager
 import androidx.transition.TransitionSet
 import com.deezork.app1.databinding.FragmentHomeBinding
 import com.deezork.app1.databinding.MergeHomeScreenContentBinding
-import java.util.Locale
+import java.util.*
 
 
 class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var bindingContent: MergeHomeScreenContentBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
-        bindingContent = MergeHomeScreenContentBinding.bind(view)
+
         // Создаем сцену
-        val scene = Scene.getSceneForLayout(
-            binding.homeFragmentRoot,
-            R.layout.merge_home_screen_content,
-            requireContext()
-        )
+        val scene = Scene.getSceneForLayout(binding.homeFragmentRoot,
+            R.layout.merge_home_screen_content, requireContext())
         //Создаем анимацию выезда поля поиска сверху
         val searchSlide = Slide(Gravity.TOP).addTarget(R.id.search_view)
 //Создаем анимацию выезда RV снизу
@@ -54,11 +48,19 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
 //Также запускаем через TransitionManager, но вторым параметром передаем нашу кастомную анимацию
         TransitionManager.go(scene, customTransition)
 
-        startSV()
-        startRV()
+        startSRV()
+        //Кладем нашу БД в RV
+        filmsAdapter.addItems(filmsDataBase)
     }
 
-    fun startSV() {
+    fun startSRV() {
+        // Проблема с этим binding:
+        val bindingContent = MergeHomeScreenContentBinding.bind(view)
+        startSV(bindingContent)
+        startRV(bindingContent)
+    }
+
+    fun startSV(bindingContent: MergeHomeScreenContentBinding) {
         // воспринимает клик в любой части searchView а не только на иконке
         bindingContent.searchView.setOnClickListener {
             bindingContent.searchView.isIconified = false
@@ -93,7 +95,7 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
         })
     }
 
-    fun startRV() {
+    fun startRV(bindingContent: MergeHomeScreenContentBinding) {
         //находим наш RV
         bindingContent.mainRecycler.apply {
             filmsAdapter =
@@ -109,11 +111,7 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
             //Применяем декоратор для отступов
             val decorator = TopSpacingItemDecoration(8)
             addItemDecoration(decorator)
-
         }
-        //Кладем нашу БД в RV
-        filmsAdapter.addItems(filmsDataBase)
-
     }
 
     fun updateRV(newList: List<Film>) {
