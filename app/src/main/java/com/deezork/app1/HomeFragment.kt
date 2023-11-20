@@ -23,12 +23,11 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+        binding = FragmentHomeBinding.inflate(inflater)
+        return binding.root   }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentHomeBinding.bind(view)
 
         // Создаем сцену
         val scene = Scene.getSceneForLayout(binding.homeFragmentRoot,
@@ -54,8 +53,7 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
     }
 
     fun startSRV() {
-        // Проблема с этим binding:
-        val bindingContent = MergeHomeScreenContentBinding.bind(view)
+        val bindingContent = MergeHomeScreenContentBinding.bind(binding.root)
         startSV(bindingContent)
         startRV(bindingContent)
     }
