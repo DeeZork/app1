@@ -39,7 +39,7 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
 //Создаем экземпляр TransitionSet, который объединит все наши анимации
         val customTransition = TransitionSet().apply {
             //Устанавливаем время, за которое будет проходить анимация
-            duration = 500
+            duration = 1000
             //Добавляем сами анимации
             addTransition(recyclerSlide)
             addTransition(searchSlide)
@@ -47,15 +47,11 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
 //Также запускаем через TransitionManager, но вторым параметром передаем нашу кастомную анимацию
         TransitionManager.go(scene, customTransition)
 
-        startSRV()
-        //Кладем нашу БД в RV
-        filmsAdapter.addItems(filmsDataBase)
-    }
-
-    fun startSRV() {
         val bindingContent = MergeHomeScreenContentBinding.bind(binding.root)
         startSV(bindingContent)
         startRV(bindingContent)
+        //Кладем нашу БД в RV
+        filmsAdapter.addItems(filmsDataBase)
     }
 
     fun startSV(bindingContent: MergeHomeScreenContentBinding) {
@@ -78,7 +74,7 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
                     filmsAdapter.addItems(filmsDataBase)
                     return true
                 }
-                //Фильтруем список на поискк подходящих сочетаний
+                //Фильтруем список на поиск подходящих сочетаний
                 val result = filmsDataBase.filter {
                     //Чтобы все работало правильно, нужно и запрос, и имя фильма приводить к нижнему регистру
                     it.title.toLowerCase(Locale.getDefault()).contains(
