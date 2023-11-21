@@ -16,7 +16,7 @@ class DetailsFragment : Fragment() {
     private lateinit var film: Film
     init {
         enterTransition = Slide(Gravity.TOP).apply { duration = 500 }
-        exitTransition = Slide(Gravity.BOTTOM).apply { duration = 500;mode = Slide.MODE_OUT }
+        returnTransition = Slide(Gravity.TOP).apply { duration = 500;mode = Slide.MODE_OUT }
     }
 
     override fun onCreateView(

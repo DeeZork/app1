@@ -1,5 +1,6 @@
 package com.deezork.app1
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -21,6 +22,10 @@ import java.util.*
 class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
+    init {
+        enterTransition = Slide(Gravity.TOP).apply { duration = 500 }
+        exitTransition = Slide(Gravity.BOTTOM).apply { duration = 500;mode = Slide.MODE_OUT }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentHomeBinding.inflate(inflater)
