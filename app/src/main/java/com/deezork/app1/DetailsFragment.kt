@@ -2,16 +2,22 @@ package com.deezork.app1
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.transition.Slide
 import com.deezork.app1.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {
     //Привязываем View из layout к переменным
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var film: Film
+    init {
+        enterTransition = Slide(Gravity.TOP).apply { duration = 500 }
+        exitTransition = Slide(Gravity.BOTTOM).apply { duration = 500;mode = Slide.MODE_OUT }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
