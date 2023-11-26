@@ -20,15 +20,14 @@ class DetailsFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding= FragmentDetailsBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentDetailsBinding.bind(view)
-
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.fragmentDetailsRoot, requireActivity(), 1)
         //Получаем наш фильм из переданного бандла
         film = arguments?.get("film") as Film
         setFilmsDetails()

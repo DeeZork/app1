@@ -21,7 +21,7 @@ class FavoritesFragment(val filmsDataBase: List<Film>) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AnimationHelper.performFragmentCircularRevealAnimation(binding.fragmentFavoriteRoot, requireActivity(), 1)
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.fragmentFavoriteRoot, requireActivity(), 2)
 
         //Создаем список избранных фильмов
         filmsDataBase.forEach { i -> if (i.isInFavorites) favoritesList.plus(i)}

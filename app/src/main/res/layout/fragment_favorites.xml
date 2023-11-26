@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_favorite_root"
+    android:background="@drawable/background_favorites"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FavoritesFragment">
 
