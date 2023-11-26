@@ -33,7 +33,7 @@ class HomeFragment(val filmsDataBase: List<Film>) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.homeFragmentRoot, requireActivity(), 1)
         // Создаем сцену
         val scene = Scene.getSceneForLayout(binding.homeFragmentRoot,
             R.layout.merge_home_screen_content, requireContext())

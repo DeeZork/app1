@@ -14,20 +14,17 @@ class FavoritesFragment(val filmsDataBase: List<Film>) : Fragment() {
     private lateinit var filmsAdapter: FilmListRecyclerAdapter
     val favoritesList: List<Film> = emptyList()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+        binding=FragmentFavoritesBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Получаем список при транзакции фрагмента
-        binding = FragmentFavoritesBinding.bind(view)
+        AnimationHelper.performFragmentCircularRevealAnimation(binding.fragmentFavoriteRoot, requireActivity(), 1)
+
         //Создаем список избранных фильмов
-        filmsDataBase.forEach { i ->
-            if (i.isInFavorites) favoritesList.plus(i)
-        }
+        filmsDataBase.forEach { i -> if (i.isInFavorites) favoritesList.plus(i)}
         binding.favoritesRecycler.apply {
             filmsAdapter =
                 FilmListRecyclerAdapter(object : FilmListRecyclerAdapter.OnItemClickListener {

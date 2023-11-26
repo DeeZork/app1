@@ -2,10 +2,9 @@
     <string name="app_name">FilmsSearch</string>
     <string name="btn_menu">Меню</string>
     <string name="btn_favorite">Избранное</string>
-    <string name="btn_later">Смотреть позже</string>
+    <string name="btn_later">Отложить</string>
     <string name="btn_choice">Подборки</string>
     <string name="menu_settings_title">Search it!</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="menu_home_title_text">Домой</string>
 </resources>
