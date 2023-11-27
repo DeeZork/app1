@@ -1,14 +1,9 @@
 package com.deezork.app1
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.deezork.app1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
